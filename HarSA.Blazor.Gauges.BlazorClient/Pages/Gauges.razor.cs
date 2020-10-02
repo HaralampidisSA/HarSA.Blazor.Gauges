@@ -10,9 +10,9 @@ namespace HarSA.Blazor.Gauges.BlazorClient.Pages
         private GaugeConfig config = new GaugeConfig()
         {
             Label = "%",
-            MajorTicks = 5,
+            MajorTicks = 3,
             MinorTicks = 2,
-            Max = 130,
+            Max = 110,
             Min = 90,
             Size = 300,
             TransitionDurationMs = 600,
@@ -36,8 +36,10 @@ namespace HarSA.Blazor.Gauges.BlazorClient.Pages
 
             for (int i = 0; i < 100; i++)
             {
-                await Task.Delay(10000);
-                await gauge.UpdateValue((r.NextDouble() * (130 - 80)) + 80);
+              await Task.Delay(10000);
+              await gauge.UpdateValue((r.NextDouble() * (130 - 80)) + 80);
+            }
+
 
 
             }
