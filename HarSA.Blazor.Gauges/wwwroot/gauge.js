@@ -50,17 +50,21 @@
 			.style("stroke", "#e0e0e0")
 			.style("stroke-width", "2px");
 
-		for (var greenIndex in this.config.greenZones) {
-			this.drawBand(this.config.greenZones[greenIndex].from, this.config.greenZones[greenIndex].to, self.config.greenColor);
-		}
+		//for (var greenIndex in this.config.greenZones) {
+		//	this.drawBand(this.config.greenZones[greenIndex].from, this.config.greenZones[greenIndex].to, self.config.greenColor);
+		//}
 
-		for (var yellowIndex in this.config.yellowZones) {
-			this.drawBand(this.config.yellowZones[yellowIndex].from, this.config.yellowZones[yellowIndex].to, self.config.yellowColor);
-		}
+		//for (var yellowIndex in this.config.yellowZones) {
+		//	this.drawBand(this.config.yellowZones[yellowIndex].from, this.config.yellowZones[yellowIndex].to, self.config.yellowColor);
+		//}
 
-		for (var redIndex in this.config.redZones) {
-			this.drawBand(this.config.redZones[redIndex].from, this.config.redZones[redIndex].to, self.config.redColor);
-		}
+		//for (var redIndex in this.config.redZones) {
+		//	this.drawBand(this.config.redZones[redIndex].from, this.config.redZones[redIndex].to, self.config.redColor);
+		//}
+
+		this.drawBand(this.config.greenZone.from, this.config.greenZone.to, self.config.greenColor, "greenZone");
+		this.drawBand(this.config.yellowZone.from, this.config.yellowZone.to, self.config.greenColor, "yellowZone");
+		this.drawBand(this.config.redZone.from, this.config.redZone.to, self.config.greenColor, "redZone");
 
 		if (undefined !== this.config.label) {
 			var fontSize = Math.round(this.config.size / 9);
@@ -183,7 +187,20 @@
 		}
 	}
 
-	this.drawBand = function (start, end, color) {
+	//this.drawBand = function (start, end, color) {
+	//	if (0 >= end - start) return;
+
+	//	this.body.append("svg:path")
+	//		.style("fill", color)
+	//		.attr("d", d3.arc()
+	//			.startAngle(this.valueToRadians(start))
+	//			.endAngle(this.valueToRadians(end))
+	//			.innerRadius(0.65 * this.config.raduis)
+	//			.outerRadius(0.85 * this.config.raduis))
+	//		.attr("transform", function () { return "translate(" + self.config.cx + ", " + self.config.cy + ") rotate(270)" });
+	//}
+
+	this.drawBand = function (start, end, color, zoneContainer) {
 		if (0 >= end - start) return;
 
 		this.body.append("svg:path")
@@ -193,7 +210,19 @@
 				.endAngle(this.valueToRadians(end))
 				.innerRadius(0.65 * this.config.raduis)
 				.outerRadius(0.85 * this.config.raduis))
+			.attr("class", container)
 			.attr("transform", function () { return "translate(" + self.config.cx + ", " + self.config.cy + ") rotate(270)" });
+	}
+
+	this.redrawZone = function (start, end, color, container, transitionDuration) {
+		var zoneContainer = this.body.select(container);
+		var band = zoneContainer.selectAll("path");
+		band.transition()
+			.duration(undefined !== transitionDuration ? transitionDuration : this.config.transitionDuration)
+			.attrTween("d", function (d, i, a) {
+				var res = d3.arc().startAngle(self.valueToRadians(minValue)).endAngle(self.valueToRadians(maxValue)).innerRadius(0.70 * self.config.raduis).outerRadius(0.91 * self.config.raduis);
+				return res;
+			});
 	}
 
 	this.redraw = function (value, transitionDuration) {
