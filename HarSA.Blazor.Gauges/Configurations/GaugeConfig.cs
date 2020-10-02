@@ -35,13 +35,13 @@ namespace HarSA.Blazor.Gauges.Configurations
         public string Label { get; set; }
 
         [JsonPropertyName("yellowZone")]
-        public GaugeZone YellowZone { get; set; }
+        public GaugeZone YellowZone { get; set; } = new GaugeZone();
 
         [JsonPropertyName("greenZone")]
-        public GaugeZone GreenZone { get; set; }
+        public GaugeZone GreenZone { get; set; } = new GaugeZone();
 
         [JsonPropertyName("redZone")]
-        public GaugeZone RedZone { get; set; }
+        public GaugeZone RedZone { get; set; } = new GaugeZone();
 
         [JsonPropertyName("valuePrecision")]
         public int? ValuePrecision { get; set; }

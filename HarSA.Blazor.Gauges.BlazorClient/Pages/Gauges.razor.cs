@@ -14,20 +14,8 @@ namespace HarSA.Blazor.Gauges.BlazorClient.Pages
             MinorTicks = 2,
             Max = 130,
             Min = 90,
-            Size = 60,
+            Size = 300,
             TransitionDurationMs = 600,
-            GreenZones = new GaugeZone[]
-            {
-                new GaugeZone { From = 100, To = 130 }
-            },
-            YellowZones = new GaugeZone[]
-            {
-                new GaugeZone { From = 95, To = 100 }
-            },
-            RedZones = new GaugeZone[]
-            {
-                new GaugeZone { From = 90, To = 95 }
-            },
             ValuePrecision = 2
         };
 
@@ -37,14 +25,22 @@ namespace HarSA.Blazor.Gauges.BlazorClient.Pages
         {
             var r = new Random();
 
+            await Task.Delay(2000);
+            await gauge.UpdateYellowZone(95, 120);
+
+            await Task.Delay(2000);
+            await gauge.UpdateRedZone(90, 95);
+
+            await Task.Delay(2000);
+            await gauge.UpdateGreenZone(120, 130);
+
             for (int i = 0; i < 100; i++)
             {
-                await Task.Delay(300000000);
-                await gauge.UpdateValue((r.NextDouble() * (103 - 80)) + 80);
+                await Task.Delay(10000);
+                await gauge.UpdateValue((r.NextDouble() * (130 - 80)) + 80);
+
 
             }
-
-
         }
     }
 }
