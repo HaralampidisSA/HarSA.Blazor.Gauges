@@ -38,9 +38,29 @@ namespace HarSA.Blazor.Gauges.Components
             StateHasChanged();
         }
 
+        public async Task UpdateRedZone(double min, double max)
+        {
+            await JS.InvokeVoidAsync("HarGauge.interop.updateRedZone", ElementId, min, max);
+            StateHasChanged();
+        }
+
+        public async Task UpdateYellowZone(double min, double max)
+        {
+            await JS.InvokeVoidAsync("HarGauge.interop.updateYellowZone", ElementId, min, max);
+            StateHasChanged();
+        }
+
+        public async Task UpdateGreenZone(double min, double max)
+        {
+            await JS.InvokeVoidAsync("HarGauge.interop.updateGreenZone", ElementId, min, max);
+            StateHasChanged();
+        }
+
         public async void Dispose()
         {
             await JS.InvokeVoidAsync("HarGauge.interop.destroyGauge", ElementId);
         }
+
+
     }
 }
