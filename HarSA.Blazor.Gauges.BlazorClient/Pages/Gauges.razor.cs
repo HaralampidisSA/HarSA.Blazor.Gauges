@@ -10,15 +10,15 @@ namespace HarSA.Blazor.Gauges.BlazorClient.Pages
         private GaugeConfig config = new GaugeConfig()
         {
             Label = "%",
-            MajorTicks = 5,
+            MajorTicks = 3,
             MinorTicks = 2,
-            Max = 130,
+            Max = 110,
             Min = 90,
-            Size = 60,
+            Size = 200,
             TransitionDurationMs = 600,
             GreenZones = new GaugeZone[]
             {
-                new GaugeZone { From = 100, To = 130 }
+                new GaugeZone { From = 100, To = 110 }
             },
             YellowZones = new GaugeZone[]
             {
@@ -39,8 +39,8 @@ namespace HarSA.Blazor.Gauges.BlazorClient.Pages
 
             for (int i = 0; i < 100; i++)
             {
-                await Task.Delay(300000000);
-                await gauge.UpdateValue((r.NextDouble() * (103 - 80)) + 80);
+                await Task.Delay(3000);
+                await gauge.UpdateValue((r.NextDouble() * (103 - 90)) + 90);
 
             }
 
